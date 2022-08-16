@@ -12,7 +12,8 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 public class AuthFailureHandler implements AuthenticationFailureHandler{
 
 	/*
-	 * 예외발생시 낚아채는 역할
+	 * 로그인 실패시 호출할 핸들러
+	 * 로그인 실패시 예외가 발생하는데 예외발생시 낚아채는 역할
 	 */
 	
 	@Override

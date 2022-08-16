@@ -18,6 +18,7 @@ public class User {
 	private String user_name;
 	private String user_email;
 	private String user_id;
+	private String oauth2_id;
 	private String user_password;
 	private String user_roles;         //ROLE_USER,ROLE_ADMIN,ROLE_MANAGER
 	private String user_provider;
@@ -27,9 +28,11 @@ public class User {
 	private int user_gender;
 	
 	public List<String> getUserRoles() {
-		if(user_roles == null) {
+		if(user_roles == null || user_roles.isBlank()) {
 			return new ArrayList<String>();
 		}
-		return Arrays.asList(user_roles.split(",")); //role 3개를 배열로 만들고 리스트로 받음
+		return Arrays.asList(user_roles.replaceAll(" ", "").split(",")); //role 3개를 배열로 만들고 리스트로 받음
+		//split된 리스트를 서비스클래스로 보냄.
+		//replaceAll -> 공백제거
 	}
 }
