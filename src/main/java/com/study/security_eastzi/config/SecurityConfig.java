@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //adapter -> 
 		http.csrf().disable();
 		http.authorizeRequests() //요청이 들어왔을때 인증을 거쳐라.
 			// 인가 API - URL 방식 
-			.antMatchers("/api/v1/grant/test/user/**")
+			.antMatchers("/api/v1/grant/test/user/**") //해당 주소는 hasRole에 해당하는 사람만 이용가능한 주소 
 			.access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
 			
 			.antMatchers("/api/v1/grant/test/manager/**")
@@ -62,7 +62,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //adapter -> 
 			.antMatchers("/", "/index", "/mypage/**") //우리가 지정한 요청(단순히 저 3개의 요청일 때 - 고정 주소 아님.) 
 			.authenticated()			//인증을 거쳐야 하는 요청(인증을 거쳐라) -> /와 index 이외의 다른 모든 요청은 모두 권한을 부여함.(인증필요x)
 										// 인증이 필요하다 = 로그인이 필요하다 (로그인 페이지로 보냄)
-			.anyRequest() //모든 권한을 줌. 인증을 거칠 필요 없음.
+			/*
+			 * <anyRequest>
+			 * 1. antMatchers에 설정된 URL 외의 URL을 나타냄
+			 * 2. 이 URL 들은 인증된 사용자들에게만 허용함. = 로그인한 사용자들 
+			 */
+			.anyRequest() 
 			.permitAll() //모든 권한을 줌. 인증을 거칠 필요 없음.
 			
 			.and()
@@ -70,13 +75,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //adapter -> 
 			.formLogin() //로그인 방법 3가지 - httpBasic / formLogin / jwt(토큰이용) 로그인 중 한가지 
 			.loginPage("/auth/signin") //로그인시 로그인페이지에 접근하는 get요청 주소(사용자 정의 로그인 페이지 주소 - 기본제공x)
 			.loginProcessingUrl("/auth/signin") //로그인 요청(= post요청(정보 보호를 위해 get이 아님)) / PrincipalDetailsService 호출함.
-			.failureHandler(new AuthFailureHandler()) //로그인 실패 시 호출할 핸들러 -> 핸들러는 로그인 이후 작업을 처리함.
+			
+			/*
+			 * 1. 로그인 실패 시 호출할 핸들러 -> 핸들러는 로그인 이후 작업을 처리함.
+			 * 2. AuthenticationFailureHandler를 impl 하고 config에서 설정하여 핸들러로 등록
+			 * 3. 커스텀한 loginPage메소드보다 뒤에 설정하기. 앞에 설정하면 default loginPage가 나타남.
+			 */
+			.failureHandler(new AuthFailureHandler()) 
 			
 			.and()
 			
 			.oauth2Login()
-			.userInfoEndpoint()
-			.userService(principalOauth2UserService) //PrincipalOauth2UserService 객체가 옴
+			
+			/*
+			 * <userInfoEndpoint>
+			 * 1. OAuth2 로그인 성공 후 사용자 정보를 가져올 때의 설정
+			 * 2. google, naver, kakao 에 로그인 요청을 하면 -> 코드를 발급해줌
+			 * 3. 발급 받은 코드를 가진 상태에서 권한요청을 함. = 토큰발급요청
+			 * 4. 토큰이 발급되면 스코프에 등록된 프로필 정보를 가져올 수 있게됨 
+			 * 5. 해당 정보를 시큐리티의 객체로 전달받는다. 
+			 */
+			.userInfoEndpoint() 
+			
+			/*
+			 * <userService>
+			 * 1. OAuth2 로그인 성공 시 후속 조치를 진행할 UserService 인터페이스의 구현체를 등록합니다.
+			 * 2. PrincipalOauth2UserService 객체가 옴 -> loadUser메소드가 호출됨. 
+			 */
+			.userService(principalOauth2UserService) 
 			
 			.and()
 			

@@ -20,14 +20,14 @@ spring:
       client:
         registration:
           google:
-            client-id: 
-            client-secret: 
+            client-id: 951473963484-oijht29i1d55g25nh6q8ngqoqclq2kmg.apps.googleusercontent.com 
+            client-secret: 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
             scope:
             - email
             - profile
           naver:
-            client-id: 
-            client-secret: 
+            client-id: P71OBYz2BRXfKevTWVko
+            client-secret: _cDKi1jsOG
             scope:
             - email
             - name

@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
 @Builder
 @NoArgsConstructor
@@ -19,6 +20,7 @@ public class User {
 	private String user_email;
 	private String user_id;
 	private String oauth2_id;
+	@JsonIgnore
 	private String user_password;
 	private String user_roles;         //ROLE_USER,ROLE_ADMIN,ROLE_MANAGER
 	private String user_provider;
@@ -27,6 +29,7 @@ public class User {
 	private String user_phone;
 	private int user_gender;
 	
+	//사용자 계정이 가지는 권한을 List로 리턴하는 메소드 
 	public List<String> getUserRoles() {
 		if(user_roles == null || user_roles.isBlank()) {
 			return new ArrayList<String>();

@@ -2,7 +2,6 @@ package com.study.security_eastzi.service.auth;
 
 import java.util.Collection;
 
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,9 +15,18 @@ import com.study.security_eastzi.web.dto.auth.SignupReqDto;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
+@Service //메모리에 등록하는 역할 
 @RequiredArgsConstructor
 public class PrincipalDetailsService implements UserDetailsService {
+	/*
+	 * UserDetailsService
+	 * 1. dao로써 db에서 유저 정보를 직접 가져오는 역할/ 가져와서 리턴함.
+	 *  
+	 * PrincipalDetailsService
+	 * 1. Authentication 객체를 생성하기 위한 class
+	 * 
+	 */
+
 
 	private final UserRepository userRepository;
 	
@@ -26,8 +34,10 @@ public class PrincipalDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		/*
 		 * <loadUserByUsername>
-		 * 1. 사용자 이름을 기준으로 사용자를 찾습니다.
-		 * 2. 사용자를 찾을 수 없거나 사용자에게 권한이 없는 경우
+		 * 1. 로그인 요청을 받으면 실행되는 메소드 
+		 * 2. db에서 사용자 정보를 불러오는 메소드 
+		 * 3. 사용자 이름을 기준으로 사용자를 찾습니다.
+		 * 4. username이 있다면 유저 객체를 반환하고, 없으면 null을 반환하여 로그인을 하게 함
 		 * 
 		 * <UsernameNotFoundException>
 		 * 1. 사용자를 찾을 수 없거나 사용자에게 권한이 없는 경우 
@@ -39,14 +49,16 @@ public class PrincipalDetailsService implements UserDetailsService {
 		User userEntity = null;
 		
 		try {
+			//username 으로 사용자 정보를 가져옴. 
 			userEntity = userRepository.findUserByUsername(username);
 		} catch (Exception e) {
 			e.printStackTrace();
+			//username 의 사용자 정보가 없다면 NotFound 예외를 던짐. 
 			throw new UsernameNotFoundException(username);
 		}
 		
-
-		if(userEntity == null) { //loadUserByUsername를 config에서 호출받아 username을 비교
+		//userEntity가 null일때 NotFound 예외를 던짐. 
+		if(userEntity == null) { 
 			throw new UsernameNotFoundException(username + "사용자 이름은 사용할 수 없습니다.");
 		}
 

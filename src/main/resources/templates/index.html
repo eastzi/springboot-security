@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Index</title>
+
+<style type="text/css">
+	table {
+		border: 1px solid #141414;
+		border-collapse: collapse;
+	}
+	
+	th, td {
+		border: 1px solid #141414;
+		padding: 10px;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 	<h1>메인페이지</h1>
+	<table>
+		<tr>
+			<th>이름</th>
+			<th>이메일</th>
+			<th>아이디</th>
+			<th>OAuth아이디</th>
+			<th>비밀번호</th>
+			<th>ROLE</th>
+			<th>PROVIDER</th>
+		</tr>
+		<tr>
+			<td th:text="${principal.user.user_name}"></td>
+			<td th:text="${principal.user.user_email}"></td>
+			<td th:text="${principal.user.user_id}"></td>
+			<td th:text="${principal.user.oauth2_id}"></td>
+			<td th:text="${principal.user.user_password}"></td>
+			<td th:text="${principal.user.user_roles}"></td>
+			<td th:text="${principal.user.user_provider}"></td>
+		</tr>
+	</table>
 </body>
 </html>
