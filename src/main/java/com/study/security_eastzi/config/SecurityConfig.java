@@ -6,6 +6,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.study.security_eastzi.config.auth.AuthFailureHandler;
 import com.study.security_eastzi.service.auth.PrincipalOauth2UserService;
@@ -24,6 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //adapter -> 
 	 * 3. api = 인증, 인가 api
 	 */
 
+	private final CorsFilter corsFilter;
+	
 	private final PrincipalOauth2UserService principalOauth2UserService;
 	
 	/*
@@ -48,6 +54,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //adapter -> 
 		 * 3. jwt -> 웹토큰 
 		 */
 		http.csrf().disable();
+		
+		//cors 인증을 하지 않겠다.(활성화, 허용시키겠다)
+		//기본적으로 security filter에서 cors인증을 막음.
+		//http.addFilter(corsFilter);
+		http.addFilter(corsFilter)
+			.headers().frameOptions().disable();
+		
 		http.authorizeRequests() //요청이 들어왔을때 인증을 거쳐라.
 			// 인가 API - URL 방식 
 			.antMatchers("/api/v1/grant/test/user/**") //해당 주소는 hasRole에 해당하는 사람만 이용가능한 주소 
@@ -109,4 +122,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //adapter -> 
 			.defaultSuccessUrl("/") //로그인 성공시 보낼 주소 / antMatchers 주소로 보냄. / = /, /index = /index, /mypage = /mypage (이전페이지로 보냄)
 			;
 	}
+
+
 }

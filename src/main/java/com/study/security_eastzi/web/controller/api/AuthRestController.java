@@ -37,7 +37,10 @@ public class AuthRestController {
 	/*
 	 * <DI>
 	 * 1. AuthRestController가 AuthService, PrincipalDetailsService에 의존성이 있다.
+	 * (controller가 service에 의존한다 = service가 변하면 controller에 영향을 미친다) 
 	 * 2. 생성자를 통한 의존관계 주입 
+	 * 3. 의존관계를 외부에서 정한다.
+	 * 4. setter의 역할과 유사함.
 	 */
 	
 	private final AuthService authService;
