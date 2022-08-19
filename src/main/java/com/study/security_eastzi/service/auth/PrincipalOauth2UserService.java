@@ -122,7 +122,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 		
 		//user 정보가 없는 경우 
 		if(user == null) { //null = 회원가입이 필요한 상태 
-			//user 생성
+			//user 객체 생성 - builder 패턴
 			user = User.builder()
 					.user_name((String) response.get("name"))
 					.user_email((String) response.get("email"))

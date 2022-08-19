@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/notice-header.css">
     <link rel="stylesheet" href="/static/css/notice.css">
+    <link rel="stylesheet" href="/static/css/notice-list.css">
+
 </head>
 <body>
     <header>
@@ -14,6 +17,10 @@
             <button type="button" class="nav-list">홈</button>
             <button type="button" class="nav-list">공지사항</button>
         </nav>
+        <div class="auth-items">
+            <button type="button" class="auth-button signin">로그인</button>
+            <button type="button" class="auth-button signup">회원가입</button>
+        </div>
     </header>
     <main>
         <div class="notice-header">
@@ -25,7 +32,7 @@
                     <option value="writer">작성자</option>
                 </select>
                 <input type="text" class="search-input">
-                <button class="search-button">검색</button>
+                <button type="button" class="search-button">검색</button>
             </div>
         </div>
         <article>
@@ -40,7 +47,7 @@
                 <tr class="notice-row">
                     <td>1</td>
                     <td>spring boot notice 수업</td>
-                    <td>eastzi</td>
+                    <td>junil</td>
                     <td>2022-08-17</td>
                     <td>10</td>
                 </tr>

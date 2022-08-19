@@ -32,7 +32,13 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthRestController {
+	
+	/*
+	 * <DI>
+	 * 1. AuthRestController가 AuthService, PrincipalDetailsService에 의존성이 있다.
+	 * 2. 생성자를 통한 의존관계 주입 
+	 */
 	
 	private final AuthService authService;
 	private final PrincipalDetailsService principalDetailsService;

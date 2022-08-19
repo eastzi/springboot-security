@@ -1,0 +1,54 @@
+/*===========<< main >>===========*/
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 50px;
+}
+
+.notice-header {
+    display: flex;
+    justify-content: space-between;
+    
+    border-bottom: 2px solid #141414;
+
+    padding: 20px;
+
+    width: 70%;
+    height: 150px;
+
+    background-color: white;
+}
+
+.menu-title {
+    font-size: 34px;
+    font-weight: 700;
+}
+
+
+article {
+    margin-top: 20px;
+    
+    border: 2px solid #141414;
+    
+    padding: 40px 70px;
+    width: 70%;
+    min-height: 400px;
+    
+    background-color: white;
+    
+}
+
+.notice-list {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.notice-row {
+    border-bottom: 1px solid #dbdbdb;
+    height: 40px;
+
+    cursor: pointer;
+}
