@@ -22,12 +22,16 @@ spring:
           google:
             client-id: 951473963484-oijht29i1d55g25nh6q8ngqoqclq2kmg.apps.googleusercontent.com 
             client-secret: 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
+            client-id: 
+            client-secret: 
             scope:
             - email
             - profile
           naver:
             client-id: P71OBYz2BRXfKevTWVko
             client-secret: _cDKi1jsOG
+            client-id: 
+            client-secret: 
             scope:
             - email
             - name
